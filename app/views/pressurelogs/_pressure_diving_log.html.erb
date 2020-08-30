@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="card-img-top">
+  </div>
+  <div class="card-body">
+    <h6 class="card-title">Tank #<%= @tank.tank_number %> diving log</h6>
+    <div class="card-text">
+      <div>
+        <table class="table table-responsive table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Updated at</th>
+              <th scope="col-6" style="width:60%">Status</th>
+              <th scope="col">User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @pressure_diving_logs.each do |log| %>
+              <tr>
+                <td><%= log.updated_at.strftime("%A, %d %B %Y %H:%M") %></td>
+                <td>
+                  <% if log.pressure_start.presence and log.pressure_end.presence %>
+                  <% current_pressure_prct = ((log.pressure_end.to_f / log.pressure_start.to_f)*100).round(2) %>
+                    Empty (<%= log.pressure_end %> bars)
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= current_pressure_prct %>%" aria-valuenow="<%= log.pressure_end %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+                    </div>
+                  <% elsif log.pressure_start.presence and !log.pressure_end.presence %>
+                    Full (<%= log.pressure_start %> bars)
+                    <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="<%= log.pressure_start %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+                    </div>
+                  <% end %>
+                </td>
+                <td>
+                  TODO
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

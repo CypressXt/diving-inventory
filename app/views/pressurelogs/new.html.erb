@@ -5,7 +5,13 @@
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          <h5 class="card-title">New tank</h5>
+          <h5 class="card-title">
+            <% if @is_filled %>
+            <h1>I'm back from my diving session</h1>
+            <% else %>
+            <h1>I'm filling this tank</h1>
+            <% end %>
+          </h5>
           <div class="card-text">
             <%= render 'form_new' %>
           </div>

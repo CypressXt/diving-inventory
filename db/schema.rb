@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_30_112428) do
+ActiveRecord::Schema.define(version: 2020_08_30_160903) do
+
+  create_table "pressurelogs", force: :cascade do |t|
+    t.integer "tank_id"
+    t.integer "pressure_start"
+    t.integer "pressure_end"
+    t.integer "o2_percentage"
+    t.datetime "filling_timestamp"
+    t.datetime "emptying_timestamp"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tank_id"], name: "index_pressurelogs_on_tank_id"
+  end
 
   create_table "tanks", force: :cascade do |t|
     t.integer "tank_number"

@@ -1,7 +1,7 @@
 class TanksController < ApplicationController
 
   def index
-    @tanks = Tank.all
+    @tanks = Tank.all.includes(:pressurelogs)
   end
 
   def new
@@ -20,6 +20,12 @@ class TanksController < ApplicationController
 
   def show
     @tank = Tank.find(params["id"])
+    last_pressure_log = @tank.pressurelogs.order("updated_at DESC").first
+    @is_filled = false
+    if last_pressure_log.presence and last_pressure_log.pressure_end == nil
+      @is_filled = true
+    end
+    @pressure_diving_logs = @tank.pressurelogs.order("updated_at DESC")
   end
 
   def qrcode

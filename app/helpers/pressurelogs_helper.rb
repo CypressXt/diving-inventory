@@ -1,0 +1,2 @@
+module PressurelogsHelper
+end

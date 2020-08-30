@@ -12,12 +12,43 @@
         <div class="card-img-top">
         </div>
         <div class="card-body">
-          <h5 class="card-title">Tank #<%= @tank.tank_number %></h5>
-          <div class="card-text">
-            <p>Volume: <%= @tank.volume %>l</p>
-            <div>
-              <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
-              <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <% if @is_filled %>
+                  <div class="alert alert-success" role="alert">
+                    Ready to dive
+                  </div>
+                <% else %>
+                  <div class="alert alert-danger" role="alert">
+                    Need to be refilled !
+                  </div>
+                <% end %>
+                <h5 class="card-title">Tank #<%= @tank.tank_number %></h5>
+                <div class="card-text">
+                  <p>Volume: <%= @tank.volume %>l</p>
+                  <div>
+                    <%
+                    btn_txt = "I'm back from my dive"
+                    if !@is_filled
+                    btn_txt = "I'm filling this tank"
+                    end
+                    %>
+                    <div class="row">
+                      <div class="col-sm">
+                        <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn" %>
+                      </div>
+                      <div class="col-sm">
+                        <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
+                        <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-9">
+                <%= render 'pressurelogs/pressure_diving_log' %>
+              </div>
             </div>
           </div>
         </div>
