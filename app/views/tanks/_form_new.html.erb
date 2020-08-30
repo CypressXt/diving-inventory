@@ -1,0 +1,31 @@
+<%= form_for(@tank) do |f| %>
+  <% if f.object.errors.any? %>
+  <div class="form-group" style="padding-left:2em;padding-right:2em;">
+    <div class="alert alert-danger" role="alert">
+      <div id="clear"></div>
+      <div id="error">
+        <p class="title">
+          <%= t 'activemodel.errors.messages', count: f.object.errors.count %>
+        </p>
+        <ul>
+          <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div id="clear"></div>
+    </div>
+  </div>
+  <% end %>
+  <div class="form-group">
+    <%= label_tag 'tank_number', "Tank number", class: 'col-sm-2 col-md-2 control-label' %>
+    <%= f.number_field :tank_number, steps:1.0, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'volume', "Tank volume [l]", class: 'col-sm-2 col-md-2 control-label' %>
+    <%= f.number_field :volume, steps:1.0, class: 'form-control'%>
+  </div>
+  <div class="form-group" style="margin-top:1em">
+    <%= f.submit :class => "btn btn-primary btn-block btn-lg" %>
+  </div>
+<% end %>

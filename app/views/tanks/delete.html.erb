@@ -1,0 +1,12 @@
+<div class="container" style="padding-top:1em">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <h1>You really want to delete permanently the tank number #<%= @tank.tank_number%>?</h1>
+          <%= link_to "Yes please, delete this tank.", tank_path(@tank.id), :method => :delete, :class => "btn btn-danger btn-lg" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

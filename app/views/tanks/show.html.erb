@@ -1,0 +1,27 @@
+<div class="container" style="padding-top:1em">
+  <div class="row">
+    <div class="col-sm">
+      <% flash.each do |key, value| %>
+      <div id="error_explanation" class="alert alert-<%=key%>" role="alert">
+        <p>
+          <%= value %>
+        </p>
+      </div>
+      <% end %>
+      <div class="card text-center" style="padding-top:1em">
+        <div class="card-img-top">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Tank #<%= @tank.tank_number %></h5>
+          <div class="card-text">
+            <p>Volume: <%= @tank.volume %>l</p>
+            <div>
+              <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
+              <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

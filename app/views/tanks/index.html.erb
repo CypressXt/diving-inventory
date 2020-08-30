@@ -1,0 +1,41 @@
+<div class="container" style="padding-top:1em">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-body">
+          <header>
+            <h1>All tanks</h1>
+          </header>
+          <% flash.each do |key, value| %>
+          <div id="error_explanation" class="alert alert-<%=key%>" role="alert">
+            <p>
+              <%= value %>
+            </p>
+          </div>
+          <% end %>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Tank #</th>
+                <th scope="col">Volume</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @tanks.each do |tank| %>
+              <tr>
+                <th scope="row"><%= tank.id %></th>
+                <td><%= tank.volume %>l</td>
+                <td>
+                  <%= link_to 'Show tank', tank_path(tank.id), :class=>"btn btn-info btn-sm" %>
+                  <%= link_to 'Delete this tank', tank_delete_path(tank.id), :class => "btn btn-danger btn-sm" %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
