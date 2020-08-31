@@ -25,6 +25,8 @@ append :linked_files, "config/database.yml", "config/credentials.yml.enc", "conf
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
+append :linked_dirs, %w{node_modules bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system }
+
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -39,16 +41,3 @@ append :linked_files, "config/database.yml", "config/credentials.yml.enc", "conf
 # set :ssh_options, verify_host_key: :secure
 
 after 'deploy:updated', 'webpacker:precompile'
-
-before "deploy:assets:precompile", "deploy:yarn_install"
-
-namespace :deploy do
-  desc 'Run rake yarn:install'
-  task :yarn_install do
-    on roles(:web) do
-      within release_path do
-        execute("cd #{release_path} && yarn install")
-      end
-    end
-  end
-end

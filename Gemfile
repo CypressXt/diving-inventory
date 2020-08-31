@@ -53,6 +53,7 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-webpacker-precompile', require: false
+  gem 'capistrano-yarn', require: false
 end
 
 group :test do
