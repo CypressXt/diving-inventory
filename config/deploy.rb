@@ -39,3 +39,16 @@ append :linked_files, "config/database.yml", "config/credentials.yml.enc", "conf
 # set :ssh_options, verify_host_key: :secure
 
 after 'deploy:updated', 'webpacker:precompile'
+
+before "deploy:assets:precompile", "deploy:yarn_install"
+
+namespace :deploy do
+  desc 'Run rake yarn:install'
+  task :yarn_install do
+    on roles(:web) do
+      within release_path do
+        execute("cd #{release_path} && yarn install")
+      end
+    end
+  end
+end
