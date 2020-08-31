@@ -39,5 +39,3 @@ append :linked_dirs, "node_modules", "log", "tmp/pids", "tmp/cache", "tmp/socket
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-
-after 'deploy:updated', 'webpacker:precompile'
