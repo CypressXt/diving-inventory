@@ -52,6 +52,7 @@ group :development do
   gem "capistrano-rails", "~> 1.3", require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm', require: false
+  gem 'capistrano-webpacker-precompile', require: false
 end
 
 group :test do
