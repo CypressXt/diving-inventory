@@ -54,6 +54,7 @@ group :development do
   gem 'capistrano-rvm', require: false
   gem 'capistrano-webpacker-precompile', require: false
   gem 'capistrano-yarn', require: false
+  gem 'capistrano3-puma', require: false
 end
 
 group :test do
