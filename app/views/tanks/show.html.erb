@@ -14,6 +14,11 @@
         <div class="card-body">
           <div class="container">
             <div class="row">
+              <div class="col-sm-3" style="padding:1em">
+                <%= link_to '< Tank list', tanks_path, :class => "btn btn-light"%>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-sm">
                 <% if @is_filled %>
                   <div class="alert alert-success" role="alert">
