@@ -13,19 +13,23 @@
             </p>
           </div>
           <% end %>
+          <div>
+            <%= link_to 'Create a tank', new_tank_path, :class=>"btn btn-primary btn-sm" %>
+          </div>
           <table class="table table-hover table-responsive">
             <thead>
               <tr>
                 <th scope="col">Tank #</th>
                 <th scope="col">Volume</th>
                 <th scope="col" style="width:60%">Status</th>
+                <th scope="col">Mixture</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
               <% @tanks.each do |tank| %>
                 <tr>
-                  <th scope="row"><%= tank.id %></th>
+                  <th scope="row"><%= tank.tank_number %></th>
                   <td><%= tank.volume %>l</td>
                   <td>
                     <% if tank.is_filled
@@ -49,6 +53,19 @@
                       <div class="progress">
                         <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="210"></div>
                       </div>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%
+                    log = tank.get_current_log
+                    if log != nil
+                      if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+                        Air
+                      <% else %>
+                        Nitrox <%= log.o2_percentage %>
+                      <% end
+                    else %>
+                    -
                     <% end %>
                   </td>
                   <td>

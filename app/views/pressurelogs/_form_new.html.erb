@@ -17,16 +17,29 @@
     </div>
   </div>
   <% end %>
-  <div class="form-group">
-    <% if !@is_filled %>
+  <% if !@is_filled %>
+    <div class="form-group">
       <%= label_tag 'pressure_start', "The tank is filled at [bar]", class: 'control-label' %>
-      <%= f.number_field :pressure_start, steps:1.0, :value => '210', class: 'form-control', :required => true %>
-    <% else %>
+      <%= f.number_field :pressure_start, steps:1.0, :value => '210', class: 'form-control', :pattern => "[0-9]*", :required => true %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'o2_percentage', "Oxygen %", class: 'control-label' %>
+      <%= f.number_field :o2_percentage, steps:1.0, :value => '21', class: 'form-control', :pattern => "[0-9]*", :required => true %>
+    </div>
+  <% else %>
+    <div class="form-group">
       <%= label_tag 'pressure_end', "My tank is still pressurised at [bar]", class: 'control-label' %>
-      <%= f.number_field :pressure_end, steps:1.0, placeholder: "50", class: 'form-control', :required => true %>
-    <% end %>
-  </div>
+      <%= f.number_field :pressure_end, steps:1.0, placeholder: "50", class: 'form-control', :pattern => "[0-9]*", :required => true %>
+    </div>
+  <% end %>
   <div class="form-group" style="margin-top:1em">
-    <%= f.submit "Save", :class => "btn btn-primary btn-block btn-lg" %>
+    <div class="row">
+      <div class="col-md-6" style="padding-top:1em;">
+        <%= link_to 'Cancel', tanks_path, :class => "btn btn-secondary btn-block btn-lg" %>
+      </div>
+      <div class="col-md-6" style="padding-top:1em;">
+        <%= f.submit "Save", :class => "btn btn-primary btn-block btn-lg" %>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -10,6 +10,7 @@
             <tr>
               <th scope="col">Updated at</th>
               <th scope="col-6" style="width:60%">Status</th>
+              <th scope="col">Mixture</th>
               <th scope="col">User</th>
             </tr>
           </thead>
@@ -29,6 +30,13 @@
                     <div class="progress">
                       <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="<%= log.pressure_start %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
                     </div>
+                  <% end %>
+                </td>
+                <td>
+                  <% if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+                    Air
+                  <% else %>
+                    Nitrox <%= log.o2_percentage %>
                   <% end %>
                 </td>
                 <td>

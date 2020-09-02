@@ -36,7 +36,7 @@ class PressurelogsController < ApplicationController
   end
 
   def pressure_log_params
-    params.require(:pressurelog).permit(:tank_id, :pressure_start, :pressure_end)
+    params.require(:pressurelog).permit(:tank_id, :pressure_start, :pressure_end, :o2_percentage)
   end
 
   private
