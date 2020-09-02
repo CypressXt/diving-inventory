@@ -31,7 +31,7 @@ server 'ruby-host.cypressxt.net', user: 'cypress', roles: %w{app db web}, port: 
 # For available Capistrano configuration variables see the documentation page.
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
-
+set :branch, "preproduction"
 
 
 # Custom SSH Options
