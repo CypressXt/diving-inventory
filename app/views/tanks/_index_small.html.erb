@@ -1,10 +1,13 @@
 <% @tanks.each do |tank| %>
 <div class="card" style="margin-top:1em;">
   <div class="card-body">
-    <div class="row">
+    <div class="row" style="margin-bottom:1em;">
       <div class="col-4">
-        <h5 class="card-title">Tank #<%= tank.tank_number %></h5>
-        <h6 class="card-subtitle mb-2 text-muted"><%= tank.volume %>l</h6>
+        <h6 class="card-title">Tank #<%= tank.tank_number %></h6>
+        <h7 class="card-subtitle mb-2 text-muted"><%= tank.volume %>l</h7>
+      </div>
+      <div class="col-8">
+        <div>
           <%
           log = tank.get_current_log
           if log != nil
@@ -16,8 +19,8 @@
           else %>
           -
           <% end %>
-      </div>
-      <div class="col-8">
+        </div>
+        <div>
         <% if tank.is_filled
             log = tank.get_current_log
         %>
@@ -40,14 +43,15 @@
             <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="210"></div>
           </div>
         <% end %>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-6">
-        <%= link_to 'Show tank', tank_path(tank.id), :class=>"btn btn-info btn-sm" %>
+      <div class="col-4">
+        <%= link_to 'Delete', tank_delete_path(tank.id), :class => "btn btn-danger btn-sm" %>
       </div>
-      <div class="col-6">
-        <%= link_to 'Delete this tank', tank_delete_path(tank.id), :class => "btn btn-danger btn-sm" %>
+      <div class="col-8">
+        <%= link_to 'Show', tank_path(tank.id), :class=>"btn btn-info btn-sm", :style=>"width:100%;" %>
       </div>
     </div>
   </div>
