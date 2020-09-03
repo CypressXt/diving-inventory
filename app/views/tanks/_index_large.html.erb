@@ -1,0 +1,60 @@
+<table class="table table-hover table-responsive">
+  <thead>
+    <tr>
+      <th scope="col">Tank #</th>
+      <th scope="col">Volume</th>
+      <th scope="col" style="width:60%">Status</th>
+      <th scope="col">Mixture</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tanks.each do |tank| %>
+      <tr>
+        <th scope="row"><%= tank.tank_number %></th>
+        <td><%= tank.volume %>l</td>
+        <td>
+          <% if tank.is_filled
+              log = tank.get_current_log
+          %>
+            Full (<%= log.pressure_start %> bars)
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="<%= log.pressure_start %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+            </div>
+          <% elsif tank.get_current_log != nil %>
+          <%
+            log = tank.get_current_log
+            current_pressure_prct = ((log.pressure_end.to_f / log.pressure_start.to_f)*100).round(2)
+          %>
+            Empty (<%= log.pressure_end %> bars)
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= current_pressure_prct %>%" aria-valuenow="<%= log.pressure_end %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+            </div>
+          <% else %>
+            Empty (0 bars)
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="210"></div>
+            </div>
+          <% end %>
+        </td>
+        <td>
+          <%
+          log = tank.get_current_log
+          if log != nil
+            if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+              Air
+            <% else %>
+              Nitrox <%= log.o2_percentage %>
+            <% end
+          else %>
+          -
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Show tank', tank_path(tank.id), :class=>"btn btn-info btn-sm" %>
+          <%= link_to 'Delete this tank', tank_delete_path(tank.id), :class => "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
