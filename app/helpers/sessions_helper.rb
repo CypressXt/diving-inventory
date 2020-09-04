@@ -20,4 +20,10 @@ module SessionsHelper
       return head(:forbidden)
     end
   end
+
+  def must_be_admin
+    if !(is_logged_in and current_logged_user.admin?)
+      return head(:forbidden)
+    end
+  end
 end

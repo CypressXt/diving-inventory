@@ -51,9 +51,14 @@
                   <% if is_logged_in %>
                     <div class="row">
                       <div class="col-12">
-                        <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn-lg" %>
+                        <% if !@is_filled and !current_logged_user.admin? %>
+                          <button type="button" class="btn btn-success btn-lg" disabled><%= btn_txt %><br>(Only admin can refill tanks)</button>
+                        <% elsif !@is_filled and current_logged_user.admin? or @is_filled %>
+                          <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn-lg" %>
+                        <% end %>
                       </div>
                     </div>
+                    <% if current_logged_user.admin? %>
                     <div class="row" style="margin-top:1em;margin-bottom:1em;">
                       <div class="col-md-6">
                         <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
@@ -62,6 +67,16 @@
                         <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
                       </div>
                     </div>
+                    <% else %>
+                    <div class="row" style="margin-top:1em;margin-bottom:1em;">
+                      <div class="col-md-6">
+                        <button type="button" class="btn btn-info btn-sm" disabled>Show QRcode <br>(You must be an admin)</button>
+                      </div>
+                      <div class="col-md-6">
+                        <button type="button" class="btn btn-danger btn-sm" disabled>Delete this tank <br>(You must be an admin)</button>
+                      </div>
+                    </div>
+                    <% end %>
                   <% else %>
                     <div class="row">
                       <div class="col-12">
