@@ -8,25 +8,40 @@
         </p>
       </div>
       <% end %>
-      <div class="card text-center" style="padding-top:1em">
-        <div class="card-img-top">
-        </div>
+      <div class="card" style="padding-top:1em">
         <div class="card-body">
           <div class="container">
             <div class="row">
-              <div class="col-sm">
+              <div class="col-sm-3" style="padding:1em">
+                <%= link_to '< Tank list', tanks_path, :class => "btn btn-light"%>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-center">
                 <% if @is_filled %>
                   <div class="alert alert-success" role="alert">
-                    Ready to dive
+                    <h1>Ready to dive</h1>
                   </div>
                 <% else %>
                   <div class="alert alert-danger" role="alert">
-                    Need to be refilled !
+                    <h1>Need to be refilled !</h1>
                   </div>
                 <% end %>
-                <h5 class="card-title">Tank #<%= @tank.tank_number %></h5>
+                <h4 class="card-title">Tank #<%= @tank.tank_number %></h4>
+                <h5 class="card-subtitle mb-2 text-muted"><%= @tank.volume %>l
+                  <%
+                  log = @tank.get_current_log
+                  if log != nil
+                    if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+                      Air
+                    <% else %>
+                      Nitrox <%= log.o2_percentage %>
+                    <% end
+                  else %>
+                  -
+                  <% end %>
+                </h5>
                 <div class="card-text">
-                  <p>Volume: <%= @tank.volume %>l</p>
                   <div>
                     <%
                     btn_txt = "I'm back from my dive"
@@ -35,19 +50,37 @@
                     end
                     %>
                     <div class="row">
-                      <div class="col-sm">
-                        <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn" %>
+                      <div class="col-12">
+                        <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn-lg" %>
                       </div>
-                      <div class="col-sm">
+                    </div>
+                    <div class="row" style="margin-top:1em;margin-bottom:1em;">
+                      <div class="col-md-6">
                         <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
+                      </div>
+                      <div class="col-md-6">
                         <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-9">
-                <%= render 'pressurelogs/pressure_diving_log' %>
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-img-top">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Pressure log</h5>
+                    <div class="card-text">
+                      <div class="d-block d-sm-none">
+                        <%= render 'pressurelogs/pressure_diving_log_small' %>
+                      </div>
+                      <div class="d-none d-sm-block">
+                        <%= render 'pressurelogs/pressure_diving_log_large' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -1,24 +1,16 @@
-# README
+# Diving inventory
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project aim to keep on tracking diving tanks lifecycle.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Features
+  - ✅ Mobile friendly
+  - ✅ Diving tank inventory
+  - ✅ Diving tank pressure management
+    - ✅ At inflation
+    - ✅ After a dive
+  - ✅ Dive log by tank
+  - ✅ Diving tank oxygen mixture (Nitrox o2%)
+  - ✅ Diving tank identification by QRcode
+  - [ ] User management
+  - [ ] User admin role
+  - [ ] i18n multilingual

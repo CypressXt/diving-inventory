@@ -1,0 +1,33 @@
+<% @pressure_diving_logs.each do |log| %>
+<div class="card" style="margin-top:1em;">
+  <div class="card-header">
+    <%= log.updated_at.strftime("%A, %d %B %Y %H:%M") %>
+  </div>
+  <div class="card-body">
+    <div>Diver: TODO</div>
+    <div class="row">
+      <div class="col-8">
+        <% if log.pressure_start.presence and log.pressure_end.presence %>
+        <% current_pressure_prct = ((log.pressure_end.to_f / log.pressure_start.to_f)*100).round(2) %>
+          Empty (<%= log.pressure_end %> bars)
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= current_pressure_prct %>%" aria-valuenow="<%= log.pressure_end %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+          </div>
+        <% elsif log.pressure_start.presence and !log.pressure_end.presence %>
+          Full (<%= log.pressure_start %> bars)
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="<%= log.pressure_start %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-4">
+        <% if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+          Air
+        <% else %>
+          Nitrox <%= log.o2_percentage %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
