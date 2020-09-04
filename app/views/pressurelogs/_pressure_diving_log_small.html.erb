@@ -7,7 +7,7 @@
     <% end %>
   </div>
   <div class="card-body">
-    <div class="row">
+    <div class="row align-items-center">
       <div class="col-8">
         <% if log.pressure_start.presence and log.pressure_end.presence %>
         <% current_pressure_prct = ((log.pressure_end.to_f / log.pressure_start.to_f)*100).round(2) %>
