@@ -1,6 +1,7 @@
 class PressurelogsController < ApplicationController
   before_action :must_be_logged
   before_action :get_tank
+  before_action :only_admin_can_refill, only: [:create, :update]
 
   def new
     @pressure_log = Pressurelog.new
@@ -47,5 +48,11 @@ class PressurelogsController < ApplicationController
 
     def get_tank
       @tank = Tank.find(params[:tank_id])
+    end
+
+    def only_admin_can_refill
+      if !@tank.is_filled
+        must_be_admin
+      end
     end
 end
