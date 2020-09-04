@@ -17,7 +17,7 @@ module SessionsHelper
 
   def must_be_logged
     if !is_logged_in
-      render status: :forbidden
+      return head(:forbidden)
     end
   end
 end
