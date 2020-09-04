@@ -1,4 +1,5 @@
 class TanksController < ApplicationController
+  before_action :must_be_logged, except: [:index, :show]
 
   def index
     @tanks = Tank.all.includes(:pressurelogs)
