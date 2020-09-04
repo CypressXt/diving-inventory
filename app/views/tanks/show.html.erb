@@ -10,95 +10,93 @@
       <% end %>
       <div class="card shadow-sm" style="padding-top:1em">
         <div class="card-body">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-3" style="padding:1em">
-                <%= link_to '< Tank list', tanks_path, :class => "btn btn-light"%>
-              </div>
+          <div class="row">
+            <div class="col-sm-3" style="padding:1em">
+              <%= link_to '< Tank list', tanks_path, :class => "btn btn-light"%>
             </div>
-            <div class="row">
-              <div class="col-md-4 text-center">
-                <% if @is_filled %>
-                  <div class="alert alert-success" role="alert">
-                    <h1>Ready to dive</h1>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <% if @is_filled %>
+                <div class="alert alert-success" role="alert">
+                  <h1>Ready to dive</h1>
+                </div>
+              <% else %>
+                <div class="alert alert-danger" role="alert">
+                  <h1>Need to be refilled !</h1>
+                </div>
+              <% end %>
+              <h4 class="card-title">Tank #<%= @tank.tank_number %></h4>
+              <h5 class="card-subtitle mb-2 text-muted"><%= @tank.volume %>l
+                <%
+                log = @tank.get_current_log
+                if log != nil
+                  if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+                    Air
+                  <% else %>
+                    Nitrox <%= log.o2_percentage %>
+                  <% end
+                else %>
+                -
+                <% end %>
+              </h5>
+              <div class="card-text">
+                <%
+                btn_txt = "I'm back from my dive"
+                if !@is_filled
+                btn_txt = "I'm filling this tank"
+                end
+                %>
+                <% if is_logged_in %>
+                  <div class="row">
+                    <div class="col-12">
+                      <% if !@is_filled and !current_logged_user.admin? %>
+                        <button type="button" class="btn btn-success btn-lg" disabled><%= btn_txt %><br>(Only admin can refill tanks)</button>
+                      <% elsif !@is_filled and current_logged_user.admin? or @is_filled %>
+                        <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn-lg" %>
+                      <% end %>
+                    </div>
                   </div>
+                  <% if current_logged_user.admin? %>
+                  <div class="row" style="margin-top:1em;margin-bottom:1em;">
+                    <div class="col-6">
+                      <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
+                    </div>
+                    <div class="col-6">
+                      <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
+                    </div>
+                  </div>
+                  <% else %>
+                  <div class="row" style="margin-top:1em;margin-bottom:1em;">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-info btn-sm" disabled>Show QRcode <br>(You must be an admin)</button>
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-danger btn-sm" disabled>Delete this tank <br>(You must be an admin)</button>
+                    </div>
+                  </div>
+                  <% end %>
                 <% else %>
-                  <div class="alert alert-danger" role="alert">
-                    <h1>Need to be refilled !</h1>
+                  <div class="row">
+                    <div class="col-12">
+                      <button type="button" class="btn btn-success btn-lg" disabled><%= btn_txt %><br>(You need to log in first)</button>
+                    </div>
                   </div>
                 <% end %>
-                <h4 class="card-title">Tank #<%= @tank.tank_number %></h4>
-                <h5 class="card-subtitle mb-2 text-muted"><%= @tank.volume %>l
-                  <%
-                  log = @tank.get_current_log
-                  if log != nil
-                    if !log.o2_percentage.presence or log.o2_percentage == 21 %>
-                      Air
-                    <% else %>
-                      Nitrox <%= log.o2_percentage %>
-                    <% end
-                  else %>
-                  -
-                  <% end %>
-                </h5>
-                <div class="card-text">
-                  <%
-                  btn_txt = "I'm back from my dive"
-                  if !@is_filled
-                  btn_txt = "I'm filling this tank"
-                  end
-                  %>
-                  <% if is_logged_in %>
-                    <div class="row">
-                      <div class="col-12">
-                        <% if !@is_filled and !current_logged_user.admin? %>
-                          <button type="button" class="btn btn-success btn-lg" disabled><%= btn_txt %><br>(Only admin can refill tanks)</button>
-                        <% elsif !@is_filled and current_logged_user.admin? or @is_filled %>
-                          <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn-lg" %>
-                        <% end %>
-                      </div>
-                    </div>
-                    <% if current_logged_user.admin? %>
-                    <div class="row" style="margin-top:1em;margin-bottom:1em;">
-                      <div class="col-md-6">
-                        <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>
-                      </div>
-                      <div class="col-md-6">
-                        <%= link_to 'Delete this tank', tank_delete_path(@tank.id), :class => "btn btn-danger btn-sm" %>
-                      </div>
-                    </div>
-                    <% else %>
-                    <div class="row" style="margin-top:1em;margin-bottom:1em;">
-                      <div class="col-md-6">
-                        <button type="button" class="btn btn-info btn-sm" disabled>Show QRcode <br>(You must be an admin)</button>
-                      </div>
-                      <div class="col-md-6">
-                        <button type="button" class="btn btn-danger btn-sm" disabled>Delete this tank <br>(You must be an admin)</button>
-                      </div>
-                    </div>
-                    <% end %>
-                  <% else %>
-                    <div class="row">
-                      <div class="col-12">
-                        <button type="button" class="btn btn-success btn-lg" disabled><%= btn_txt %><br>(You need to log in first)</button>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
               </div>
-              <div class="col-md-8">
-                <div class="card">
-                  <div class="card-img-top">
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Pressure log</h5>
-                    <div class="card-text">
-                      <div class="d-block d-sm-none">
-                        <%= render 'pressurelogs/pressure_diving_log_small' %>
-                      </div>
-                      <div class="d-none d-sm-block">
-                        <%= render 'pressurelogs/pressure_diving_log_large' %>
-                      </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-img-top">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Pressure log</h5>
+                  <div class="card-text">
+                    <div class="d-block d-sm-none">
+                      <%= render 'pressurelogs/pressure_diving_log_small' %>
+                    </div>
+                    <div class="d-none d-sm-block">
+                      <%= render 'pressurelogs/pressure_diving_log_large' %>
                     </div>
                   </div>
                 </div>
