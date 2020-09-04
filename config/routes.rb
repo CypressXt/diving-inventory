@@ -7,4 +7,12 @@ Rails.application.routes.draw do
     get 'delete' => 'tanks#delete'
     resources :pressurelogs, only: [:new, :create, :update]
   end
+
+  resources :users, only: [:new, :create]
+
+  # Sessions ------------------
+  get     'login'                          => 'sessions#new'
+  post    'login'                          => 'sessions#create'
+  delete  'logout'                         => 'sessions#destroy'
+  # ---------------------------
 end

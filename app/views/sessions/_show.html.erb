@@ -1,0 +1,16 @@
+<div class="row text-right" style="padding-top:1em;padding-right:1em;">
+  <div class="col-md-4 offset-md-8">
+    <% if is_logged_in %>
+    <div class="dropdown">
+      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= current_logged_user.name.capitalize %>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <%= link_to "Log out", logout_path, method: :delete, :class=>"dropdown-item" %>
+      </div>
+    </div>
+    <% else %>
+    <%= link_to "Log in / Register", login_path, :class=>"btn btn-secondary", :type=>"button"%>
+    <% end %>
+  </div>
+</div>
