@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_30_160903) do
+ActiveRecord::Schema.define(version: 2020_09_04_171129) do
 
   create_table "pressurelogs", force: :cascade do |t|
     t.integer "tank_id"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 2020_08_30_160903) do
     t.datetime "emptying_timestamp"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["tank_id"], name: "index_pressurelogs_on_tank_id"
+    t.index ["user_id"], name: "index_pressurelogs_on_user_id"
   end
 
   create_table "tanks", force: :cascade do |t|
@@ -30,6 +32,17 @@ ActiveRecord::Schema.define(version: 2020_08_30_160903) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tank_number"], name: "index_tanks_on_tank_number", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "lastname"
+    t.string "mail"
+    t.string "password"
+    t.string "salt"
+    t.string "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

@@ -5,5 +5,7 @@ class Pressurelog < ApplicationRecord
   validates :o2_percentage, numericality: {less_than_or_equal_to: 100},
     allow_nil: true
   validates :tank, presence: true
+
   belongs_to :tank
+  belongs_to :user
 end

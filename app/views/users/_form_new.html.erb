@@ -1,0 +1,50 @@
+<%= form_for(@user) do |f| %>
+  <% if f.object.errors.any? %>
+  <div class="form-group" style="padding-left:2em;padding-right:2em;">
+    <div class="alert alert-danger" role="alert">
+      <div id="clear"></div>
+      <div id="error">
+        <p class="title">
+          <%= t 'activemodel.errors.messages', count: f.object.errors.count %>
+        </p>
+        <ul>
+          <% f.object.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div id="clear"></div>
+    </div>
+  </div>
+  <% end %>
+  <div class="form-group">
+    <%= label_tag 'name', "Name", class: 'control-label' %>
+    <%= f.text_field :name, class: 'form-control', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'lastname', "Lastname", class: 'control-label' %>
+    <%= f.text_field :lastname, class: 'form-control', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'mail', "Mail", class: 'control-label' %>
+    <%= f.email_field :mail, class: 'form-control', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'password', "Password", class: 'control-label' %>
+    <%= f.password_field :password, class: 'form-control', :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'password_confirmation', "Password confirmation", class: 'control-label' %>
+    <%= f.password_field :password_confirmation, class: 'form-control', :required => true %>
+  </div>
+  <div class="form-group" style="margin-top:1em">
+    <div class="row">
+      <div class="col-md-6" style="padding-top:1em;">
+        <%= link_to 'Cancel', tanks_path, :class => "btn btn-secondary btn-block btn-lg" %>
+      </div>
+      <div class="col-md-6" style="padding-top:1em;">
+        <%= f.submit 'Create my account', :class => "btn btn-primary btn-block btn-lg" %>
+      </div>
+    </div>
+  </div>
+<% end %>
