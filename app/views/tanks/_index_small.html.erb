@@ -47,11 +47,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-4">
-        <%= link_to 'Delete', tank_delete_path(tank.id), :class => "btn btn-danger btn-sm" %>
-      </div>
-      <div class="col-8">
-        <%= link_to 'Show', tank_path(tank.id), :class=>"btn btn-info btn-sm", :style=>"width:100%;" %>
+      <div class="col-12">
+        <%= link_to 'Details', tank_path(tank.id), :class=>"btn btn-info btn-sm stretched-link", :style=>"width:100%;" %>
       </div>
     </div>
   </div>

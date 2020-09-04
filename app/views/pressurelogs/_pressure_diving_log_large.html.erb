@@ -11,7 +11,7 @@
     <tbody>
       <% @pressure_diving_logs.each do |log| %>
         <tr>
-          <td><%= log.updated_at.strftime("%A, %d %B %Y %H:%M") %></td>
+          <td><%= log.updated_at.to_formatted_s(:short)  %></td>
           <td>
             <% if log.pressure_start.presence and log.pressure_end.presence %>
             <% current_pressure_prct = ((log.pressure_end.to_f / log.pressure_start.to_f)*100).round(2) %>
@@ -34,7 +34,11 @@
             <% end %>
           </td>
           <td>
-            TODO
+            <% if log.user != nil%>
+            <%= log.user.name.capitalize %>
+            <% else %>
+            -
+            <% end %>
           </td>
         </tr>
       <% end %>

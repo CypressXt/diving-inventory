@@ -61,4 +61,6 @@ Rails.application.configure do
   #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
+  config.time_zone = "Zurich"
+
 end
