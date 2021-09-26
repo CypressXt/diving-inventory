@@ -50,14 +50,14 @@
                 <% if is_logged_in %>
                   <div class="row">
                     <div class="col-12">
-                      <% if !@is_filled and !current_logged_user.admin? %>
+                      <% if !@is_filled and !is_admin %>
                         <button type="button" class="btn btn-success btn-lg" disabled><%= btn_txt %><br>(Only admin can refill tanks)</button>
-                      <% elsif !@is_filled and current_logged_user.admin? or @is_filled %>
+                      <% elsif !@is_filled and is_admin or @is_filled %>
                         <%= link_to btn_txt, new_tank_pressurelog_path(@tank.id), :class => "btn btn-success btn-lg" %>
                       <% end %>
                     </div>
                   </div>
-                  <% if current_logged_user.admin? %>
+                  <% if is_admin %>
                   <div class="row" style="margin-top:1em;margin-bottom:1em;">
                     <div class="col-6">
                       <%= link_to 'Show QRcode', tank_qrcode_path(@tank.id), target: :_blank, :class => "btn btn-info btn-sm" %>

@@ -11,6 +11,14 @@ module SessionsHelper
     !session[:user_logged_id].nil? && current_logged_user.present? && !current_logged_user.id.nil?
   end
 
+  def is_admin
+    if is_logged_in
+      return current_logged_user.admin
+    else
+      return false
+    end
+  end
+
   def log_out
     session.delete(:user_logged_id)
   end
@@ -23,6 +31,12 @@ module SessionsHelper
 
   def must_be_admin
     if !(is_logged_in and current_logged_user.admin?)
+      return head(:forbidden)
+    end
+  end
+
+  def must_be_admin_or_myself
+    if !is_admin and current_logged_user.id != params["id"]
       return head(:forbidden)
     end
   end
