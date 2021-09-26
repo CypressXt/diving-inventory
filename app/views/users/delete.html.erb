@@ -1,0 +1,19 @@
+<div class="container-xl" style="padding-top:1em">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h1>You really want to delete permanently the user <%= @user.name.capitalize+" "+@user.lastname.capitalize%>?</h1>
+          <div class="row">
+            <div class="col-6">
+              <%= link_to "Cancel", users_path, :class => "btn btn-light btn-lg", :style=>"width:100%;"%>
+            </div>
+            <div class="col-6">
+              <%= link_to "Delete this user.", user_path(@user.id), :method => :delete, :class => "btn btn-danger btn-lg", :style=>"width:100%;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

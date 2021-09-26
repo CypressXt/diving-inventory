@@ -4,7 +4,7 @@
       <div class="card shadow-sm">
         <div class="card-body">
           <header>
-            <h1>Tanks</h1>
+            <h1>Users</h1>
           </header>
           <% flash.each do |key, value| %>
           <div id="error_explanation" class="alert alert-<%=key%>" role="alert">
@@ -14,18 +14,10 @@
           </div>
           <% end %>
           <div>
-            <% if is_logged_in %>
-              <% if is_admin %>
-                <%= link_to 'Create a tank', new_tank_path, :class=>"btn btn-primary btn-sm" %>
-              <% else %>
-                <button type="button" class="btn btn-primary btn-sm" disabled>Create a tank <br>(You must be an admin)</button>
-              <% end %>
-            <% else %>
-              <button type="button" class="btn btn-primary btn-sm" disabled>Create a tank <br>(You need to log in first)</button>
-            <% end %>
+
           </div>
           <div class="d-block d-sm-none">
-            <%= render 'index_small' %>
+            <%# <%= render 'index_small' %> %>
           </div>
           <div class="d-none d-sm-block">
             <%= render 'index_large' %>

@@ -1,0 +1,56 @@
+<% @tanks.each do |tank| %>
+<div class="card" style="margin-top:1em;">
+  <div class="card-body">
+    <div class="row align-items-center" style="margin-bottom:1em;">
+      <div class="col-4">
+        <h6 class="card-title">Tank #<%= tank.tank_number %></h6>
+        <h7 class="card-subtitle mb-2 text-muted"><%= tank.volume %>l</h7>
+      </div>
+      <div class="col-8">
+        <div>
+          <%
+          log = tank.get_current_log
+          if log != nil
+            if !log.o2_percentage.presence or log.o2_percentage == 21 %>
+              Air
+            <% else %>
+              Nitrox <%= log.o2_percentage %>
+            <% end
+          else %>
+          -
+          <% end %>
+        </div>
+        <div>
+        <% if tank.is_filled
+            log = tank.get_current_log
+        %>
+          Full (<%= log.pressure_start %> bars)
+          <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="<%= log.pressure_start %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+          </div>
+        <% elsif tank.get_current_log != nil %>
+        <%
+          log = tank.get_current_log
+          current_pressure_prct = ((log.pressure_end.to_f / log.pressure_start.to_f)*100).round(2)
+        %>
+          Empty (<%= log.pressure_end %> bars)
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: <%= current_pressure_prct %>%" aria-valuenow="<%= log.pressure_end %>" aria-valuemin="0" aria-valuemax="<%= log.pressure_start %>"></div>
+          </div>
+        <% else %>
+          Empty (0 bars)
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="210"></div>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <%= link_to 'Details', tank_path(tank.id), :class=>"btn btn-info btn-sm stretched-link", :style=>"width:100%;" %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

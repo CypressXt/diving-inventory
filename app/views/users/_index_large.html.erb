@@ -20,11 +20,11 @@
         <td>
           <%= link_to 'Details', user_path(user.id), :class=>"btn btn-info btn-sm" %>
           <% if user.admin %>
-            <%= link_to 'Revoke admin', user_path(user.id), :class=>"btn btn-warning btn-sm" %>
+            <%= link_to 'Revoke admin', user_revoke_admin_path(user.id), method: :patch, :class=>"btn btn-warning btn-sm" %>
           <% else %>
-            <%= link_to 'Promote admin', user_path(user.id), :class=>"btn btn-warning btn-sm" %>
+            <%= link_to 'Promote admin', user_promote_admin_path(user.id),method: :patch, :class=>"btn btn-warning btn-sm" %>
           <% end %>
-          <%= link_to 'Delete', user_path(user.id), :class=>"btn btn-danger btn-sm" %>
+          <%= link_to 'Delete', user_delete_path(user.id), :class=>"btn btn-danger btn-sm" %>
         </td>
       </tr>
     <% end %>
